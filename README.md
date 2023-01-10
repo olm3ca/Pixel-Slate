@@ -89,7 +89,7 @@ For Windows, boot from the installer USB, and you may need a driver utility beyo
 - Everything will work except the camera and fingerprint reader as there are no drivers for either.
 
 
-## Part 3: MacOS Catalina / Big Sur 
+## Part 4: MacOS Catalina / Big Sur 
 Download the lastest version of Opencore. Catalina or Big Sur is recommended - either will work installed on an external SSD, but Big Sur can be picky about what type of SSD you have, so be aware it may be more challenging.
  
 1. Download and set up your Mac OS X USB install media. [gibMacOS](https://github.com/corpnewt/gibMacOS) 
@@ -111,7 +111,7 @@ Download the lastest version of Opencore. Catalina or Big Sur is recommended - e
 
 7. In the future, a eMMC driver may be developed for installation to the internal drive. More details will be shared if it succeeds. 
 
-## Part 4: Brunch
+## Part 5: Brunch
 
 Brunch currently works with ChromeOS version 106 and [Brunch v103](https://github.com/sebanc/brunch/releases/tag/r103-stable-20220721). The reason is, after version 107, Google upgraded the kernel to 5.10 and switched to a new audio firmware using avs. For now, audio does not work on Brunch 107+. In the future this will hopefully be addressed, but Brunch is not an ideal solution for the Slate given a lack of security updates.
 
