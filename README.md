@@ -21,7 +21,7 @@ Specs:
 -  SSD: 64,128 or 256GB eMMC.
 
 ### OS Compatibility Current Status
-Dual booting native ChromeOS and Fedora 37 (or my favorite, [RisiOS](https://risi.io/)) is the best overall experience and only requires RW_Legacy boot which is very easy to enable. With [MrChromebox's](https://mrchromebox.tech/) full UEFI coreboot, Windows 10/11 has the best overall hardware support outside of ChromeOS with only the fingerprint scanner and camera as nonfunctional. Mac OS works with accelerated graphics and touchscreen, but screen brightness is 100% and it is missing audio and other functionality. Battery and power management work for all. [Brunch](https://github.com/sebanc/brunch) is currently functional but only with ChromeOS 106 until audio is fixed on later releases. 
+Dual booting native ChromeOS and Fedora 37 (or my favorite, [RisiOS](https://risi.io/)) is the best overall experience and only requires RW_Legacy boot which is very easy to enable. With [MrChromebox's](https://mrchromebox.tech/) full UEFI coreboot, Windows 10/11 has the best overall hardware support outside of ChromeOS with only the fingerprint scanner and camera as nonfunctional. Mac OS works with accelerated graphics and touchscreen, but screen brightness is 100% and it is missing audio and other functionality. Battery and power management work for all. [Brunch](https://github.com/sebanc/brunch) works with sound, as noted below. Camera and fingerprint reader do not work. 
 
 
 | Hardware           | RisiOS / Fedora 37| Mac OS Big Sur     | Windows 10/11   | Brunch* (see notes below) |
@@ -113,6 +113,8 @@ Download the lastest version of Opencore. Catalina or Big Sur is recommended - e
 
 ## Part 5: Brunch
 
-Brunch currently works with ChromeOS version 106 and [Brunch v103](https://github.com/sebanc/brunch/releases/tag/r103-stable-20220721). The reason is, after version 107, Google upgraded the kernel to 5.10 and switched to a new audio firmware using avs. For now, audio does not work on Brunch 107+. In the future this will hopefully be addressed, but Brunch is not an ideal solution for the Slate given a lack of security updates.
+Brunch now works with audio - the camera and fingerprint reader do not work, as expected. To install Brunch, follow the official guide at https://github.com/sebanc/brunch and download the latest stable version. Then download the latest NOCTURNE recovery from chromiumdash. 
 
-To install Brunch, follow the official guide at https://github.com/sebanc/brunch but make sure to download [Brunch v103](https://github.com/sebanc/brunch/releases/tag/r103-stable-20220721) and use the NOCTURNE 106 recovery.
+If sound does not work, go to crosh, shell, then /etc/modprobe.d and add `avs.conf` with the following line:
+`options snd-intel-dspcfg dsp_driver=4`
+Reboot and sound should work. 
