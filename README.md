@@ -115,16 +115,20 @@ Download the lastest version of Opencore. Catalina or Big Sur is recommended - e
 
 Brunch now works with audio - the camera and fingerprint reader do not work, as expected. To install Brunch, follow the official guide at https://github.com/sebanc/brunch and download the latest stable version. Then download the latest NOCTURNE recovery from chromiumdash. 
 
-If sound does not work, go to crosh, shell, then /etc/modprobe.d and add `avs.conf` with the following line:
-`options snd-intel-dspcfg dsp_driver=4`
+Notes: Sleep is currently not working, looking for a fix.
 
-Or, to make this permanent, see the below GRUB example for the kernel command line entry:
+To fix sound: in /etc/modprobe.d and add `avs.conf` with the following line:
+`options snd-intel-dspcfg dsp_driver=4` and reboot.
 
-`img_part=/dev/mmcblk0p4
+Or, to make this more permanent and to survive OS updates, see the below GRUB example for the kernel command line entry:
+
+```
+img_part=/dev/mmcblk0p4
 	img_path=/chromos.img
 	search --no-floppy --set=root --file $img_path
 	loopback loop $img_path
 	linux (loop,7)/kernel-macbook boot=local noresume noswap loglevel=7 disablevmx=off snd-intel-dspcfg.dsp_driver=4 \
 		cros_secure cros_debug options=enable_updates,native_chromebook_image loop.max_part=16 img_part=$img_part img_path=$img_path \
 		console= vt.global_cursor_default=0 brunch_bootsplash=default 
-	initrd (loop,7)/lib/firmware/amd-ucode.img (loop,7)/lib/firmware/intel-ucode.img (loop,7)/initramfs.img`
+	initrd (loop,7)/lib/firmware/amd-ucode.img (loop,7)/lib/firmware/intel-ucode.img (loop,7)/initramfs.img
+```
