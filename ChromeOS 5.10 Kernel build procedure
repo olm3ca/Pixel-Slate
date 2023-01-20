@@ -1,0 +1,21 @@
+## Set up OS
+Start with Fedora 37. Run all updates.
+sudo dnf group install "C Development Tools and Libraries" "Development Tools"
+
+## Clone ChromeOS kernel
+git clone https://github.com/eupnea-linux/chromeos-kernel
+edit kernel_versions.json and replace "chromeos-5.10": "release-R110-15278.B-chromeos-5.10", with "chromeos-5.10": "release-R108-15183.B-chromeos-5.10"
+
+## Build it (this will take 30-40 mins depending on your CPU)
+python kernel_build.py -i chromeos-5.10
+
+## Copy files
+bzImage-stable or whatever the name is needs to go into /boot/vmlinuz-5.10.147
+install modules with tar xf modules-stable.tar.xz -C /lib/modules
+
+## After build, install
+sudo dracut --kver 5.10.147 initramfs-5.10.147.img
+sudo chmod +x /boot/vmlinuz-5.10.147
+
+## Update grub
+sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
