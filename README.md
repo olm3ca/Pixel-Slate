@@ -63,8 +63,7 @@ Switching between systems is a simple reboot followed by CTRL+D (ChromeOS) or CT
         - `sudo mount /dev/mmcblk0p6 /mnt/boot`
         - `sudo grub2-install --boot-directory=/mnt/boot /dev/mmcblk0 --force` - this should succeed with no errors.
         
-Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. For sound to work, currently compiling instructions. For advanced users, you'll need this [cros kernel](https://www.dropbox.com/s/4b225bh5ax63n75/cros%20kernel.zip?dl=0) to enable avs audio. 
-
+Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. For sound to work, follow [these instructions](https://github.com/olm3ca/Pixel-Slate/blob/main/ChromeOS%205.10.164%20setup%20procedure). This ChromeOS kernel will enable avs audio firmware to work. You will also need the avs firmware files. 
 
 ## Part 2: Full UEFI boot for Windows, MacOS and Brunch, disabling Firmware Write Protect
 
