@@ -31,7 +31,7 @@ Dual booting native ChromeOS and Fedora 37 (or my favorite, [RisiOS](https://ris
 | Suspend / Sleep    | Working              | Not Working         | Working         | Working* 		|
 | Touchpad           | Working	            | Working             | Working         | Working           |
 | Graphics Accel.    | Working              | Working	            | Working    	    | Working 		|
-| Sound              | Not Working          | Not Working         | Working	            | Working* |
+| Sound              | Working          | Not Working         | Working	            | Working* |
 | Keyboard backlight | Working              | Not Working         | Working     | Working		|
 | Touchscreen        | Working              | Working             | Working  | Working 		|
 | Screen brightness  | Working		          | Not Working	        | Working	    | Working		|
@@ -63,7 +63,7 @@ Switching between systems is a simple reboot followed by CTRL+D (ChromeOS) or CT
         - `sudo mount /dev/mmcblk0p6 /mnt/boot`
         - `sudo grub2-install --boot-directory=/mnt/boot /dev/mmcblk0 --force` - this should succeed with no errors.
         
-Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. One final note: In linux, audio does not currently work as there is a conflict with the kernel and avs firmware. This is currently being worked on, and ideas are welcome. Please post in Issues if you find a way to make audio work! Also, post your success using other distros and how you enabled hardware to work.
+Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. For sound to work, currently compiling instructions. For advanced users, you'll need this [cros kernel](https://www.dropbox.com/s/4b225bh5ax63n75/cros%20kernel.zip?dl=0) to enable avs audio. 
 
 
 ## Part 2: Full UEFI boot for Windows, MacOS and Brunch, disabling Firmware Write Protect
