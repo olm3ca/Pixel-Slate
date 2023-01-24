@@ -70,8 +70,8 @@ By default audio will not work at all, but by installing a custom kernel and cop
 
 #### Custom Kernel install
 1. Download [this custom kernel](https://www.dropbox.com/s/4b225bh5ax63n75/cros%20kernel.zip?dl=0)
-2. `sudo cp vmlinuz /boot/` and rename it to vmlinuz-5.10.164-gddc0853e897c
-3. `sudo tar xf modules-stable.tar.xz -C /lib/modules`
+2. `sudo tar xf modules.tar.xz -C /lib/modules`
+3. `sudo cp vmlinuz /boot/` then `cd /boot/` and rename it to vmlinuz-5.10.164-gddc0853e897c
 4. `sudo dracut --kver 5.10.164-gddc0853e897c initramfs-5.10.164-gddc0853e897c.img`
 5. `sudo chmod +x /boot/vmlinuz-5.10.164-gddc0853e897c`
 
