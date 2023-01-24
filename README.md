@@ -63,7 +63,20 @@ Switching between systems is a simple reboot followed by CTRL+D (ChromeOS) or CT
         - `sudo mount /dev/mmcblk0p6 /mnt/boot`
         - `sudo grub2-install --boot-directory=/mnt/boot /dev/mmcblk0 --force` - this should succeed with no errors.
         
-Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. For sound to work, follow [these instructions](https://github.com/olm3ca/Pixel-Slate/blob/main/ChromeOS%205.10.164%20setup%20procedure). This ChromeOS kernel will enable avs audio firmware to work. You will also need the avs firmware files. 
+Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. 
+
+### Audio
+By default audio will not work at all, but by installing a custom kernel and copying topology and firmware files using the super helpful Eupnea audio script, the speakers will work. The microphone is currently non-functional.
+
+#### Custom Kernel install
+1. Download [this custom kernel](https://www.dropbox.com/s/4b225bh5ax63n75/cros%20kernel.zip?dl=0)
+2. `sudo cp vmlinuz /boot/` and rename it to vmlinuz-5.10.164-gddc0853e897c
+3. `sudo tar xf modules-stable.tar.xz -C /lib/modules`
+4. `sudo dracut --kver 5.10.164-gddc0853e897c initramfs-5.10.164-gddc0853e897c.img`
+5. `sudo chmod +x /boot/vmlinuz-5.10.164-gddc0853e897c`
+
+#### Audio firmware files
+1. Run Eupnea audio scripts: https://github.com/eupnea-linux/audio-scripts
 
 ## Part 2: Full UEFI boot for Windows, MacOS and Brunch, disabling Firmware Write Protect
 
