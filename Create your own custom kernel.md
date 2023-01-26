@@ -28,9 +28,9 @@ When this completes, look for a result from the DEPMOD line (for example g8330cd
 
 1. You'll need to add a grub entry (replace the .conf names with the correct file on your system)
 `cd /boot/loader/entries/`
-`sudo cp 5703fe598c144f9da61efa5eca824361-6.1.7-200.fc37.x86_64.conf chromeos.conf`
+`sudo touch chromeos.conf`
 
-1. edit chromeos.conf
+1. add this to your chromeos.conf (modify it if needed based on your system)
 ```
 title ChromeOS Kernel (5.10.164-g8330cd2908a1)
 version 5.10.164-g8330cd2908a1
