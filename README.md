@@ -66,7 +66,7 @@ Switching between systems is a simple reboot followed by CTRL+D (ChromeOS) or CT
 Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. 
 
 ### Audio
-By default audio will not work at all, but by installing a custom kernel and copying topology and firmware files using the super helpful Eupnea audio script, the speakers will work. The microphone is currently non-functional.
+By default audio will not work at all, but by installing a custom kernel and copying topology and firmware files using the super helpful Eupnea audio script, the speakers and microphone now work!
 
 #### Custom Kernel install
 1. Download [this custom kernel](https://www.dropbox.com/s/4b225bh5ax63n75/cros%20kernel.zip?dl=0)
