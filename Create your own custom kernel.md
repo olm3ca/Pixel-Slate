@@ -29,9 +29,11 @@ When this completes, look for a result from the DEPMOD line (for example g8330cd
 1. You'll need to add a grub entry:
 `cd /boot/loader/entries/`
 
+Look in this directory for the other boot entries. You'll want to copy one (not the rescue entry) and use it to build your new entry. 
+
 `sudo touch chromeos.conf`
 
-2. add this to your chromeos.conf (modify it if needed based on your system)
+2. Based on the entries you found, add this to your chromeos.conf (modify it for the kernel name and root UUID)
 ```
 title ChromeOS Kernel (5.10.164-g8330cd2908a1)
 version 5.10.164-g8330cd2908a1
