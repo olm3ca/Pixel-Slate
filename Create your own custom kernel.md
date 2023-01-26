@@ -31,7 +31,7 @@ When this completes, look for a result from the DEPMOD line (for example g8330cd
 
 `sudo touch chromeos.conf`
 
-1. add this to your chromeos.conf (modify it if needed based on your system)
+2. add this to your chromeos.conf (modify it if needed based on your system)
 ```
 title ChromeOS Kernel (5.10.164-g8330cd2908a1)
 version 5.10.164-g8330cd2908a1
