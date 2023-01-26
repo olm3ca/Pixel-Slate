@@ -26,8 +26,9 @@ When this completes, look for a result from the DEPMOD line (for example g8330cd
 
 ### Set up grub to boot from this kernel
 
-1. You'll need to add a grub entry (replace the .conf names with the correct file on your system)
+1. You'll need to add a grub entry:
 `cd /boot/loader/entries/`
+
 `sudo touch chromeos.conf`
 
 1. add this to your chromeos.conf (modify it if needed based on your system)
