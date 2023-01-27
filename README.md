@@ -138,7 +138,7 @@ Download the lastest version of Opencore. Catalina or Big Sur is recommended - e
 
 7. In the future, a eMMC driver may be developed for installation to the internal drive. More details will be shared if it succeeds. 
 
-## Part 5: Brunch
+## Part 6: Brunch
 
 Brunch now works with audio - the camera and fingerprint reader do not work, as expected. To install Brunch, follow the official guide at https://github.com/sebanc/brunch and download the latest stable version. Then download the latest NOCTURNE recovery from chromiumdash. 
 
