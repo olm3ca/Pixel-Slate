@@ -5,11 +5,12 @@ These instructions are for Fedora systems, but can be easily adjusted to your di
 1. Get some software: 
 `sudo dnf group install "C Development Tools and Libraries" "Development Tools"`
 `sudo dnf install openssl`
+[pahole](https://rpmfind.net/linux/rpm2html/search.php?query=pahole)
 
 1. Get kernel from Google:
 `git clone --depth 1 https://chromium.googlesource.com/chromiumos/third_party/kernel -b chromeos-5.10`
 
-1. To build, you'll need [this config developed by the Eupnea team](https://www.dropbox.com/s/f7tzfe1ta7hypzu/config?dl=0) - move it into the kernel folder created in the previous step, and rename it .config
+1. To build, you'll need [this config developed by the Eupnea team](https://github.com/olm3ca/Pixel-Slate/blob/main/config) - move it into the kernel folder created in the previous step, and rename it .config
 
 1. Now it's time to build - this could take a while:
 
@@ -19,7 +20,7 @@ make -j$(nproc)
 sudo cp arch/x86/boot/bzImage /boot/vmlinuz-chromeos
 sudo make modules_install INSTALL_MOD_STRIP=1
 ```
-When this completes, look for a result from the DEPMOD line (for example g8330cd2908a1). Then run:
+When this completes, look for a result from the DEPMOD line (for example g8330cd2908a1). In this example, run:
 
 `sudo dracut /boot/initramfs-chromeos.img --kver 5.10.164-g8330cd2908a1`
 
@@ -44,7 +45,16 @@ grub_users $grub_users
 grub_arg --unrestricted
 grub_class risios
 ```
-Final step: update grub. Then reboot!
+Update grub. Then reboot.
 
 `sudo grub2-mkconfig -o /boot/grub2/grub.cfg`
+
+Note: on reboot, the screen may be upside down. To fix:
+```
+sudo su
+cd /etc/udev/hwdb.d
+wget https://raw.githubusercontent.com/eupnea-linux/depthboot-builder/main/configs/hwdb/61-sensor.hwdb
+systemd-hwdb update
+reboot
+```
 
