@@ -17,21 +17,23 @@ Specs:
 -  RAM: 4, 8 or 16GB 
 -  Audio: kblmax98373
 -  Wifi/BT Card: Intel 7265
--  Touchpad: Synaptics TM3579-001 (only works on Linux and Chrome OS). 
+-  Touchpad: Synaptics TM3579-001  
 -  SSD: 64,128 or 256GB eMMC.
 
 ### OS Compatibility Current Status
-Dual booting native ChromeOS and Fedora 37 (or my favorite, [RisiOS](https://risi.io/)) is the best overall experience and only requires RW_Legacy boot which is very easy to enable. With [MrChromebox's](https://mrchromebox.tech/) full UEFI coreboot, Windows 10/11 has the best overall hardware support outside of ChromeOS with only the fingerprint scanner and camera as nonfunctional. Mac OS works with accelerated graphics and touchscreen, but screen brightness is 100% and it is missing audio and other functionality. Battery and power management work for all. [Brunch](https://github.com/sebanc/brunch) works with sound, as noted below. Camera and fingerprint reader do not work. 
+This guide covers a few options for installing the operating system of your choice:
+- [RW_Legacy](https://mrchromebox.tech/#bootmodes) dual boot: No SuzyQ cable needed, very easy to enable. Native ChromeOS and Fedora 37 (or my favorite, [RisiOS](https://risi.io/)). 
+- [Full UEFI boot](https://mrchromebox.tech/#bootmodes) via MrChromebox's coreboot: Windows, Linux and Brunch: all hardware works except the fingerprint scanner and camera. Mac OS works with accelerated graphics and touchscreen, but screen brightness is 100% and it is missing audio and other functionality. Battery and power management work for all. 
 
 
-| Hardware           | RisiOS / Fedora 37| Mac OS Big Sur     | Windows 10/11   | Brunch* (see notes below) |
+| Hardware           | [RisiOS](https://risi.io/) / Fedora 37| Mac OS Big Sur     | Windows 10/11   | [Brunch](https://github.com/sebanc/brunch) |
 |--------------------|----------------------|---------------------|-----------------|-------------------|
 | WiFi               | Working              | Working             | Working         | Working		|
 | Bluetooth          | Working              | Working             | Working	        | Working		|
-| Suspend / Sleep    | Working              | Not Working         | Working         | Working* 		|
+| Suspend / Sleep    | Working              | Not Working         | Working         | Working 		|
 | Touchpad           | Working	            | Working             | Working         | Working           |
 | Graphics Accel.    | Working              | Working	            | Working    	    | Working 		|
-| Sound              | Working          | Not Working         | Working	            | Working* |
+| Sound w/ Mic       | Working          | Not Working         | Working	            | Working |
 | Keyboard backlight | Working              | Not Working         | Working     | Working		|
 | Touchscreen        | Working              | Working             | Working  | Working 		|
 | Screen brightness  | Working		          | Not Working	        | Working	    | Working		|
@@ -65,10 +67,25 @@ Switching between systems is a simple reboot followed by CTRL+D (ChromeOS) or CT
         
 Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. 
 
-### Audio
-By default audio will not work at all, but by installing a custom ChromeOS kernel and copying topology and firmware files using the super helpful Eupnea audio script, the speakers and microphone now work!
+Note: to set up audio, follow the instructions in Part 3 below.
 
-#### Custom Kernel install
+
+## Part 2: Full UEFI boot
+
+To proceed, you'll need to open the write protect for this machine's CR50 security chip. Start by [reading this wiki by MrChromebox](https://wiki.mrchromebox.tech/Firmware_Write_Protect) to understand what you'll be doing. For this tablet, there is really only one option: You have a SuzyQable CCD Debugging cable, or you can make one. 
+
+- A SuzyQable CCD Debugging cable (or make your own)
+- A USB-A to USB-C adapter
+- Developer mode enabled
+- Follow the [Firmware Write Protect](https://wiki.mrchromebox.tech/Firmware_Write_Protect) section entitled "Disabling WP on CR50 Devices via CCD."
+- Verify at the end that WP has been disabled with `sudo gsctool -a -I`  
+- In crosh shell, run the [UEFI Firmware Utility Script](https://mrchromebox.tech/#fwscript)
+- Make sure you save a backup of the stock firmware.
+
+## Part 3: Linux and Audio
+Install the distro of your choice but note: by default audio will not work on mainline kernels. By installing a custom ChromeOS kernel and copying topology and firmware files using the helpful [Eupnea](https://eupnea-linux.github.io/) Project's audio script, the speakers and microphone now work.
+
+#### Custom Kernel install - For best results, use this on Fedora or RisiOS. To build your own, follow the [Create your own custom kernel guide.](https://github.com/olm3ca/Pixel-Slate/blob/main/Create%20your%20own%20custom%20kernel.md)
 1. Download [this custom kernel](https://drive.google.com/file/d/1AayV-pxhpCcb4LhDQeA8mdsLi8-HVY3S/view?usp=share_link)
 2. `sudo tar xf modules.tar.xz -C /lib/modules`
 3. `sudo cp vmlinuz /boot/vmlinuz-5.10.165`
@@ -81,31 +98,14 @@ By default audio will not work at all, but by installing a custom ChromeOS kerne
 #### A note on the microphone
 The Pixel Slate microphone in RW_Legacy boot will be fully functional following this method. In full UEFI boot, the speakers will work but not the microphone. This is because the mic uses 4 channel audio, and the UEFI firmware currently limits that to 2 channels. You can update this with a test build from MrChromebox to enable all 4 channels, but it will potentially cause problems in Windows if that matters to you. 
 
-## Part 2: Full UEFI boot for Windows, MacOS and Brunch, disabling Firmware Write Protect
-
-To proceed, you'll need to open the write protect for this machine's CR50 security chip. Start by [reading this wiki by MrChromebox](https://wiki.mrchromebox.tech/Firmware_Write_Protect) to understand what you'll be doing. For this tablet, there is really only one option: You have a SuzyQable CCD Debugging cable, or you can make one. Otherwise if you're really good at hardware repair you can [open up the Slate](https://www.ifixit.com/Device/Google_Pixel_Slate) and disconnect the battery, I guess. Then skip to Part 2 below:
-
-- A SuzyQable CCD Debugging cable (no longer available for sale).
-- A USB-A to USB-C adapter
-- You must be in developer mode, so read [this guide](https://www.reddit.com/r/chromeos/comments/a1vaxq/tutorial_how_to_enabled_developer_mode_on_pixel/).
-- Read the [Firmware Write Protect](https://wiki.mrchromebox.tech/Firmware_Write_Protect) wiki article again. Start at the section entitled "Disabling WP on CR50 Devices via CCD."
-- The device will ask you to press the power button several times during 3 minutes. Once finished, it will power off.
-- Upon booting again, it will switch back to regular mode. You must shutdown and switch back over to Developer Mode. Same procedure as before and another 30 minutes of waiting.
-- Verify at the end that WP has been disabled with `sudo gsctool -a -I`  
-- UEFI Firmware Utility Script: MrChromebox's Coreboot installer. This next step is to get Coreboot installed so we can install other operating systems.
-
-    - Read MrChromebox's install [instructions carefully.](https://mrchromebox.tech/#fwscript)
-    - The latest firmware supports the Pixel Slate. Run the script provided and follow each step carefully.
-    - Follow the on-screen prompts and make sure you save a backup of the stock firmware!
-
-## Part 3: Windows 10/11 (with working audio, thanks to [Coolstar](https://coolstar.org/)!)
+## Part 4: Windows 10/11 (with working audio, thanks to [Coolstar](https://coolstar.org/)!)
 For Windows, boot from the installer USB, and you may need a driver utility beyond what Windows Update can find on its own. Driver Booster is one option, or try [Snappy](https://www.snappy-driver-installer.org/). 
 - Don't install any audio drivers. Use Coolstar's driver for that: visit [Patreon](https://www.patreon.com/coolstar) and the [Driver portal](https://coolstar.org/chromebook/driverlicense/) for more details, or visit the [Chrultrabook subreddit.](https://www.reddit.com/r/chrultrabook/)
 - Everything will work except the camera and fingerprint reader as there are no drivers for either.
 
 
-## Part 4: MacOS Catalina / Big Sur 
-Download the lastest version of Opencore. Catalina or Big Sur is recommended - either will work installed on an external SSD, but Big Sur can be picky about what type of SSD you have, so be aware it may be more challenging.
+## Part 5: MacOS Catalina / Big Sur 
+Download the lastest version of Opencore. Catalina or Big Sur is recommended - either will work installed on an external SSD, but Big Sur can be picky about what type of SSD you have.
  
 1. Download and set up your Mac OS X USB install media. [gibMacOS](https://github.com/corpnewt/gibMacOS) 
     - Before you make the install USB, make sure it is formatted as Mac OS Extended (Journaled) with GUID Partition Map.
