@@ -66,17 +66,20 @@ Switching between systems is a simple reboot followed by CTRL+D (ChromeOS) or CT
 Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. 
 
 ### Audio
-By default audio will not work at all, but by installing a custom kernel and copying topology and firmware files using the super helpful Eupnea audio script, the speakers and microphone now work!
+By default audio will not work at all, but by installing a custom ChromeOS kernel and copying topology and firmware files using the super helpful Eupnea audio script, the speakers and microphone now work!
 
 #### Custom Kernel install
-1. Download [this custom kernel](https://www.dropbox.com/s/4b225bh5ax63n75/cros%20kernel.zip?dl=0)
+1. Download [this custom kernel](https://drive.google.com/file/d/1AayV-pxhpCcb4LhDQeA8mdsLi8-HVY3S/view?usp=share_link)
 2. `sudo tar xf modules.tar.xz -C /lib/modules`
-3. `sudo cp vmlinuz /boot/vmlinuz-5.10.164-gddc0853e897c`
-4. `sudo dracut --kver 5.10.164-gddc0853e897c initramfs-5.10.164-gddc0853e897c.img`
-5. `sudo chmod +x /boot/vmlinuz-5.10.164-gddc0853e897c`
+3. `sudo cp vmlinuz /boot/vmlinuz-5.10.165`
+4. `sudo dracut --kver 5.10.165 initramfs-5.10.165.img`
+5. `sudo chmod +x /boot/vmlinuz-5.10.165`
 
 #### Audio firmware files
 1. Run Eupnea audio scripts: https://github.com/eupnea-linux/audio-scripts
+
+#### A note on the microphone
+The Pixel Slate microphone in RW_Legacy boot will be fully functional following this method. In full UEFI boot, the speakers will work but not the microphone. This is because the mic uses 4 channel audio, and the UEFI firmware currently limits that to 2 channels. You can update this with a test build from MrChromebox to enable all 4 channels, but it will potentially cause problems in Windows if that matters to you. 
 
 ## Part 2: Full UEFI boot for Windows, MacOS and Brunch, disabling Firmware Write Protect
 
