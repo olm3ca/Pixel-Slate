@@ -4,7 +4,7 @@ Multiboot guide for ChromeOS, GNU/Linux, Windows 10/11 and MacOS.
 
 |[RisiOS](https://risi.io/)      |[Big Sur](https://www.reddit.com/r/hackintosh/comments/zn5j7x/google_pixel_slate_on_mojave/)       |
 |------------|-------------|
-|<img src="PixelSlateRisiOS.png" width="400">|<img src="PixelSlateBigSur.jpg" width="400">|
+|<img src="NocturneRisi.png" width="400">|<img src="PixelSlateBigSur.jpg" width="400">|
 
 ### Disclaimer
 
