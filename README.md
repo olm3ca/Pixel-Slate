@@ -94,11 +94,21 @@ For best results, use this on Fedora or RisiOS. To build your own, follow the [C
 4. `sudo dracut --kver 5.10.165 initramfs-5.10.165.img`
 5. `sudo chmod +x /boot/vmlinuz-5.10.165`
 
+Note: on first boot with the new kernel, the screen may be upside down. To fix:
+```
+sudo su
+cd /etc/udev/hwdb.d
+wget https://raw.githubusercontent.com/eupnea-linux/depthboot-builder/main/configs/hwdb/61-sensor.hwdb
+systemd-hwdb update
+reboot
+```
+
 #### Audio firmware files
 1. Run Eupnea audio scripts: https://github.com/eupnea-linux/audio-scripts
 
 #### A note on the microphone
 The Pixel Slate microphone in RW_Legacy boot will be fully functional following this method. In full UEFI boot, the speakers will work but not the microphone. This is because the mic uses 4 channel audio, and the UEFI firmware currently limits that to 2 channels. You can update this with a test build from MrChromebox to enable all 4 channels, but it will potentially cause problems in Windows if that matters to you. 
+
 
 ## Part 4: Windows 10/11 (with working audio, thanks to [Coolstar](https://coolstar.org/)!)
 For Windows, boot from the installer USB, and you may need a driver utility beyond what Windows Update can find on its own. Driver Booster is one option, or try [Snappy](https://www.snappy-driver-installer.org/). 
