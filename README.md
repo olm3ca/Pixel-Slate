@@ -130,7 +130,7 @@ Download the lastest version of Opencore. Monterey boots well on this device, ym
     - You will need the following customizations in order to make this EFI bootable: 
     - [EmeraldSDHC kext](https://github.com/acidanthera/EmeraldSDHC) 
     - You will need to run SSDTTime in either Windows or Linux to produce the following IRC patch: FixHPET option, press C, then drag the ssdt it makes into your ACPI folder, then add the patches to your config.plist. 
-    - add the following boot args in your config.plist: -emsdhcdbg for emmc functionality and -igfxnotelemetryload for iGPU to work with full acceleration
+    - add the following boot args in your config.plist: `-igfxnotelemetryload` for iGPU to work with full acceleration
 
 4. Now, boot from the installer. In Disk Utility, go to Show All Devices in the top left, and then select the internal eMMC (either the entire drive or a partition) to format it as APFS.
     - After about 15 minutes or so, it will reboot. Do not force reboot at any point - allow it to continue even if it says "1 minute remaining" for an extended period. 
