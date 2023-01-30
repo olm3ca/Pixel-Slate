@@ -2,9 +2,9 @@
 It's a Slate, a Surface, MacOS iPad, and a full Linux tablet:
 Multiboot guide for ChromeOS, GNU/Linux, Windows 10/11 and MacOS. 
 
-|[RisiOS](https://risi.io/)      |[Big Sur](https://www.reddit.com/r/hackintosh/comments/zn5j7x/google_pixel_slate_on_mojave/)       |
+|[RisiOS](https://risi.io/)      |[MacOS](https://www.reddit.com/r/hackintosh/comments/zn5j7x/google_pixel_slate_on_mojave/)       |
 |------------|-------------|
-|<img src="NocturneRisi.png" width="400">|<img src="NocturneMacOS.png" width="400">|
+|<img src="NocturneRisi.png" width="350">|<img src="NocturneMacOS.png" width="400">|
 
 ### Disclaimer
 
@@ -23,10 +23,10 @@ Specs:
 ### OS Compatibility Current Status
 This guide covers a few options for installing the operating system of your choice:
 - [RW_Legacy](https://mrchromebox.tech/#bootmodes) dual boot: No SuzyQ cable needed, very easy to enable. Native ChromeOS and Fedora 37 (or my favorite, [RisiOS](https://risi.io/)). 
-- [Full UEFI boot](https://mrchromebox.tech/#bootmodes) via MrChromebox's coreboot: Windows, Linux and Brunch: all hardware works except the fingerprint scanner and camera. Mac OS works with accelerated graphics and touchscreen, but screen brightness is 100% and it is missing audio and other functionality. Battery and power management work for all. 
+- [Full UEFI boot](https://mrchromebox.tech/#bootmodes) via MrChromebox's coreboot: Windows, Linux and Brunch: all hardware works except the fingerprint scanner and camera. Mac OS (now with working internal eMMC storage installation!) works with accelerated graphics and touchscreen, but screen brightness is 100% and it is missing audio and other functionality. Battery and power management work for all. 
 
 
-| Hardware           | [RisiOS](https://risi.io/) / Fedora 37| Mac OS Big Sur     | Windows 10/11   | [Brunch](https://github.com/sebanc/brunch) |
+| Hardware           | [RisiOS](https://risi.io/) / Fedora 37| MacOS Monterey     | Windows 10/11   | [Brunch](https://github.com/sebanc/brunch) |
 |--------------------|----------------------|---------------------|-----------------|-------------------|
 | WiFi               | Working              | Working             | Working         | Working		|
 | Bluetooth          | Working              | Working             | Working	        | Working		|
@@ -116,8 +116,8 @@ For Windows, boot from the installer USB, and you may need a driver utility beyo
 - Everything will work except the camera and fingerprint reader as there are no drivers for either.
 
 
-## Part 5: MacOS Catalina / Big Sur 
-Download the lastest version of Opencore. Catalina or Big Sur is recommended - either will work installed on an external SSD, but Big Sur can be picky about what type of SSD you have.
+## Part 5: MacOS 
+Download the lastest version of Opencore. Monterey boots well on this device, ymmv with other MacOS versions.
  
 1. Download and set up your Mac OS X USB install media. [gibMacOS](https://github.com/corpnewt/gibMacOS) 
     - Before you make the install USB, make sure it is formatted as Mac OS Extended (Journaled) with GUID Partition Map.
@@ -125,18 +125,22 @@ Download the lastest version of Opencore. Catalina or Big Sur is recommended - e
 
 2. Create your EFI based on the latest OC Guide for [this KabyLake generation](https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/kaby-lake.html).
     
-3. When the MacOS install media is ready, mount the EFI partition with the [MountEFI](https://github.com/corpnewt/MountEFI) utility and copy the contents of the latest EFI linked above into this partition.
+3. When the MacOS install media is ready, mount the EFI partition with the [MountEFI](https://github.com/corpnewt/MountEFI) utility and copy the contents of your EFI.
     - Make sure to copy the entire contents of the EFI above, starting from the EFI folder itself. So inside the EFI partition it should start with EFI, followed by BOOT and OC folders, etc. 
+    - You will need the following customizations in order to make this EFI bootable: 
+    - [EmeraldSDHC kext](https://github.com/acidanthera/EmeraldSDHC) 
+    - You will need to run SSDTTime in either Windows or Linux to produce the following IRC patch: FixHPET option, press C, then drag the ssdt it makes into your ACPI folder, then add the patches to your config.plist. 
+    - add the following boot args in your config.plist: -emsdhcdbg for emmc functionality and -igfxnotelemetryload for iGPU to work with full acceleration
 
-4. Now, boot from the installer. In Disk Utility, go to Show All Devices in the top left, and then select your target external SSD, the entire drive (or a partition) to format it as APFS.
-    - After about 10 minutes or so, it will reboot. Go back into the boot menu and select your install media. In the opencore boot menu you should now see "Mac OS Install" as a menu item. Select that to continue the installation. 
-    - The second phase of the installation will continue for about 15-20 minutes. 
+4. Now, boot from the installer. In Disk Utility, go to Show All Devices in the top left, and then select the internal eMMC (either the entire drive or a partition) to format it as APFS.
+    - After about 15 minutes or so, it will reboot. Do not force reboot at any point - allow it to continue even if it says "1 minute remaining" for an extended period. 
+    - Go back into the boot menu and select your install media. In the opencore boot menu you should now see "Mac OS Install" as a menu item. Select that to continue the installation. 
+    - The second phase of the installation will continue for about 20-30 minutes. 
+    - It will reboot, and you may need to boot 1-2 more times with either "Mac OS Install" or the name of your hard drive in OC before Monterey is fully installed.
   
-5. Before you can boot from the new MacOS installation, you will need to copy the EFI to your target external SSD drive using the same procedure from step 3.  
+5. Before you can boot from the new MacOS installation, you will need to copy the EFI to your internal EFI partition using the same procedure from step 3.  
 
 6. Read the [OpenCore guide](https://dortania.github.io/OpenCore-Install-Guide/) on how to improve this hackintosh build and contribute here.
-
-7. In the future, a eMMC driver may be developed for installation to the internal drive. More details will be shared if it succeeds. 
 
 ## Part 6: Brunch
 
