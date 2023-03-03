@@ -36,7 +36,7 @@ This guide covers a few options for installing the operating system of your choi
 | Sound w/ Mic       | Working          | Not Working         | Working	            | Working |
 | Keyboard backlight | Working              | Not Working         | Working     | Working		|
 | Touchscreen        | Working              | Working             | Working  | Working 		|
-| Screen brightness  | Working		          | Not Working	        | Working	    | Working		|
+| Screen brightness  | Working		          | Works with BetterDisplay	        | Working	    | Working		|
 
 
 ## Part 1: Internal install dual-boot full GNU/Linux and ChromeOS for the Pixel Slate:
@@ -141,6 +141,8 @@ Download the lastest version of Opencore. Monterey boots well on this device, ym
 5. Before you can boot from the new MacOS installation, you will need to copy the EFI to your internal EFI partition using the same procedure from step 3.  
 
 6. Read the [OpenCore guide](https://dortania.github.io/OpenCore-Install-Guide/) on how to improve this hackintosh build and contribute here.
+
+7. For now, you can use [BetterDisplay](https://github.com/waydabber/BetterDisplay) for screen brightness. 
 
 ## Part 6: Brunch
 
