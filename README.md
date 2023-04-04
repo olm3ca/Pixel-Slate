@@ -91,8 +91,9 @@ For best results, use this on Fedora or RisiOS. To build your own, follow the [C
 1. Download [this custom kernel](https://drive.google.com/file/d/1AayV-pxhpCcb4LhDQeA8mdsLi8-HVY3S/view?usp=share_link)
 2. `sudo tar xf modules.tar.xz -C /lib/modules`
 3. `sudo cp vmlinuz /boot/vmlinuz-5.10.165`
-4. `sudo dracut --kver 5.10.165 initramfs-5.10.165.img`
-5. `sudo chmod +x /boot/vmlinuz-5.10.165`
+4. `cd /boot`
+5. `sudo dracut --kver 5.10.165+ initramfs-5.10.165.img`
+6. `sudo chmod +x /boot/vmlinuz-5.10.165`
 
 Note: on first boot with the new kernel, the screen may be upside down. To fix:
 ```
