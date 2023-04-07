@@ -2,9 +2,9 @@
 It's a Slate, a Surface, MacOS iPad, and a full Linux tablet:
 Multiboot guide for ChromeOS, GNU/Linux, Windows 10/11 and MacOS. 
 
-|[RisiOS](https://risi.io/)      |[MacOS](https://www.reddit.com/r/hackintosh/comments/zn5j7x/google_pixel_slate_on_mojave/)       |
-|------------|-------------|
-|<img src="NocturneRisi.png" width="350">|<img src="NocturneMacOS.png" width="400">|
+|[GNU/Linux](https://getfedora.org/)      |[MacOS](https://www.reddit.com/r/hackintosh/comments/zn5j7x/google_pixel_slate_on_mojave/)       | [Windows](https://coolstar.org/chromebook/windows.html) |
+|------------|-------------|-------------|
+|<img src="fedora.png" width="350">|<img src="Ventura.png" width="200">|<img src="Windows.png" width="350">
 
 ### Disclaimer
 
@@ -22,11 +22,11 @@ Specs:
 
 ### OS Compatibility Current Status
 This guide covers a few options for installing the operating system of your choice:
-- [RW_Legacy](https://mrchromebox.tech/#bootmodes) dual boot: No SuzyQ cable needed, very easy to enable. Native ChromeOS and Fedora 37 (or my favorite, [RisiOS](https://risi.io/)). 
-- [Full UEFI boot](https://mrchromebox.tech/#bootmodes) via MrChromebox's coreboot: Windows, Linux and Brunch: all hardware works except the fingerprint scanner and camera. Mac OS (now with working internal eMMC storage installation!) works with accelerated graphics and touchscreen, but screen brightness is 100% and it is missing audio and other functionality. Battery and power management work for all. 
+- [RW_Legacy](https://mrchromebox.tech/#bootmodes) dual boot: No SuzyQ cable needed, very easy to enable. Native ChromeOS and Fedora work very well with few limitations (or try [RisiOS](https://risi.io/)). 
+- [Full UEFI boot](https://mrchromebox.tech/#bootmodes) via MrChromebox's coreboot: Windows, Linux and Brunch: all hardware works except the fingerprint scanner and camera - in Windows, Coolstar is currently working on drivers for those. Mac OS (now with working internal eMMC storage installation!) works with accelerated graphics and touchscreen, but screen brightness is 100% and it is missing audio and other functionality. Battery and power management work for all. 
 
 
-| Hardware           | [RisiOS](https://risi.io/) / Fedora 37| MacOS Monterey     | Windows 10/11   | [Brunch](https://github.com/sebanc/brunch) |
+| Hardware           | [RisiOS](https://risi.io/) / Fedora| MacOS Monterey     | Windows 10/11   | [Brunch*](https://github.com/sebanc/brunch) |
 |--------------------|----------------------|---------------------|-----------------|-------------------|
 | WiFi               | Working              | Working             | Working         | Working		|
 | Bluetooth          | Working              | Working             | Working	        | Working		|
@@ -37,19 +37,21 @@ This guide covers a few options for installing the operating system of your choi
 | Keyboard backlight | Working              | Not Working         | Working     | Working		|
 | Touchscreen        | Working              | Working             | Working  | Working 		|
 | Screen brightness  | Working		          | Works with BetterDisplay	        | Working	    | Working		|
-
+| Camera	| Not working	| Not Working | Work-in-progress | Not Working |
+| Fingerprint reader | Not working	| Not Working | Work-in-progress | Not Working |
+| Sleep 	| Working	| Not Working 	| Working	| Not Working |
 
 ## Part 1: Internal install dual-boot full GNU/Linux and ChromeOS for the Pixel Slate:
 
-This first option may appeal to those who do not have a SuzyQ cable and / or are not interested in making modifications to the firmware as described in Part 2 below. ChromeOS uses a standard layout for partitions on the internal drive and they can be carefully modified to allow for extra space for a Linux-based OS. In my case I set aside 100GB for ChromeOS and now have a 124GB partition for RisiOS. 
+For those who do not have a SuzyQ cable and / or are not interested in making modifications to the firmware as described in Part 2 below, try this method. ChromeOS uses a standard layout for partitions on the internal drive and they can be carefully modified to allow for extra space for a Linux-based OS. In my case I set aside 100GB for ChromeOS and now have a 124GB partition for RisiOS. 
 
-Switching between systems is a simple reboot followed by CTRL+D (ChromeOS) or CTRL+L (Fedora). And if anything breaks, you can quickly start over with a ChromeOS recovery USB.
+Switching between systems is a simple reboot followed by CTRL+D (ChromeOS) or CTRL+L (Linux). And if anything breaks, you can quickly start over with a ChromeOS recovery USB.
 
-- Start with a fresh install of ChromeOS 107 using a recovery from [ChromiumDash](https://chromiumdash.appspot.com/serving-builds?deviceCategory=ChromeOS), search for Nocturne and download 107. Make a recovery drive using the Chromebook Recovery Utility. 
+- Start with a fresh install of ChromeOS using a recovery from [ChromiumDash](https://chromiumdash.appspot.com/serving-builds?deviceCategory=ChromeOS), search for Nocturne. Make a recovery drive using the Chromebook Recovery Utility. 
 - Turn on Developer Mode. For the Slate, [this guide](https://www.reddit.com/r/chromeos/comments/a1vaxq/tutorial_how_to_enabled_developer_mode_on_pixel/) may be helpful. 
 - I highly recommend reading about the ChromeOS partition structure described in detail in [Saagar Jha's excellent guide.](https://saagarjha.com/blog/2019/03/13/dual-booting-chrome-os-and-elementary-os/)
 - You can edit the partitions manually following that guide or, as I did, by using the [chromeos-resize](https://github.com/ethanmad/chromeos-resize) utility which worked perfectly on the Slate.
-- In ChromeOS 107, log in as Guest and CTRL+ALT+T to get to crosh, then follow either the manual or script procedures to set up your partitions. I recommend a KERN-C partition of at least 512mb for the /boot partition, in my case I used 600mb to be safe. You can decide how much space to allocate for ChromeOS and ROOT-C (Linux).
+- In ChromeOS, log in as Guest and CTRL+ALT+T to get to crosh, then follow either the manual or script procedures to set up your partitions. I recommend a KERN-C partition of at least 512mb for the /boot partition, in my case I used 600mb to be safe. You can decide how much space to allocate for ChromeOS and ROOT-C (Linux).
 - After your partitions have been resized, reboot and let ChromeOS repair itself. On reboot, log in and update to the latest ChromeOS version. Finally, reboot, and double check that your disk space is still correct with `sudo cgpt show /dev/mmcblk0`
 - Create a [RisiOS](https://risi.io/) or [Fedora 37](https://getfedora.org/en/workstation/download/) bootable USB. You can download it in ChromeOS, change .iso to .bin and flash it to a USB drive using the Chromebook Recovery Utility.
 - Go to [MrChromebox's website](https://mrchromebox.tech/#fwscript) and get familiar with it. In this case, run the script and enable RW_Legacy boot. That's all we need to do, no other modifications.
@@ -65,9 +67,13 @@ Switching between systems is a simple reboot followed by CTRL+D (ChromeOS) or CT
         - `sudo mount /dev/mmcblk0p6 /mnt/boot`
         - `sudo grub2-install --boot-directory=/mnt/boot /dev/mmcblk0 --force` - this should succeed with no errors.
         
-Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. 
+Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. You may wish to edit your grub menu to add an entry for this new ChromeOS kernel. The method I use is:
+ - `sudo su`
+ - `cd /boot/loader/entries/`
+ - `touch chromeos.conf`
+ - Then simply copy one of the existing entries to your new entry (chromeos.conf) but change it to boot from vmlinuz-5.10.165 and initramfs-5.10.165.img. 
 
-Note: to set up audio, follow the instructions in Part 3 below.
+Final Step: to set up audio, follow the instructions in Part 3 below.
 
 
 ## Part 2: Full UEFI boot
@@ -83,6 +89,7 @@ To proceed, you'll need to open the write protect for this machine's CR50 securi
 - Make sure you save a backup of the stock firmware.
 
 ## Part 3: Linux and Audio
+<img align="right" img src="aplay.png" width="350">
 Install the distro of your choice but note: by default audio will not work on mainline kernels. By installing a custom ChromeOS kernel and copying topology and firmware files using the helpful [Eupnea](https://eupnea-linux.github.io/) Project's audio script, the speakers and microphone now work.
 
 #### Custom Kernel install 
@@ -111,18 +118,15 @@ reboot
 The Pixel Slate microphone in RW_Legacy boot will be fully functional following this method. In full UEFI boot, the speakers will work but not the microphone. This is because the mic uses 4 channel audio, and the UEFI firmware currently limits that to 2 channels. You can update this with a test build from MrChromebox to enable all 4 channels, but it will potentially cause problems in Windows if that matters to you. 
 
 
-## Part 4: Windows 10/11 (with working audio, thanks to [Coolstar](https://coolstar.org/)!)
+## Part 4: Windows 10/11 (with working audio and other driver development, thanks to [Coolstar](https://coolstar.org/)!)
+<img align="right" img src="Windows11.png" width="300">
 For Windows, boot from the installer USB, and you may need a driver utility beyond what Windows Update can find on its own. Driver Booster is one option, or try [Snappy](https://www.snappy-driver-installer.org/). 
 - Don't install any audio drivers. Use Coolstar's driver for that: visit [Patreon](https://www.patreon.com/coolstar) and the [Driver portal](https://coolstar.org/chromebook/driverlicense/) for more details, or visit the [Chrultrabook subreddit.](https://www.reddit.com/r/chrultrabook/)
-- Everything will work except the camera and fingerprint reader as there are no drivers for either.
+- The camera and fingerprint reader are in development, updates will be posted here.
 
 
-## Part 5: MacOS 
-Download the lastest version of Opencore. Monterey boots well on this device, ymmv with other MacOS versions.
- 
-1. Download and set up your Mac OS X USB install media. [gibMacOS](https://github.com/corpnewt/gibMacOS) 
-    - Before you make the install USB, make sure it is formatted as Mac OS Extended (Journaled) with GUID Partition Map.
-    - To create the installer on a Mac in Terminal, follow [Apple's guide](https://support.apple.com/en-us/HT201372)
+## Part 5: MacOS
+<img align="right" img src="Ventura2.png" width="300"> Start first with reading the [OpenCore Guide](https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/kaby-lake.html). Download and set up your Mac OS X USB install media. [gibMacOS](https://github.com/corpnewt/gibMacOS). Before you make the install USB, make sure it is formatted as Mac OS Extended (Journaled) with GUID Partition Map. To create the installer on a Mac in Terminal, follow [Apple's guide](https://support.apple.com/en-us/HT201372)
 
 2. Create your EFI based on the latest OC Guide for [this KabyLake generation](https://dortania.github.io/OpenCore-Install-Guide/config-laptop.plist/kaby-lake.html).
     
@@ -144,6 +148,7 @@ Download the lastest version of Opencore. Monterey boots well on this device, ym
 6. Read the [OpenCore guide](https://dortania.github.io/OpenCore-Install-Guide/) on how to improve this hackintosh build and contribute here.
 
 7. For now, you can use [BetterDisplay](https://github.com/waydabber/BetterDisplay) for screen brightness. 
+
 
 ## Part 6: Brunch
 
