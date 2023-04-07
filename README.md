@@ -26,7 +26,7 @@ This guide covers a few options for installing the operating system of your choi
 - [Full UEFI boot](https://mrchromebox.tech/#bootmodes) via MrChromebox's coreboot: Windows, Linux and Brunch: all hardware works except the fingerprint scanner and camera - in Windows, Coolstar is currently working on drivers for those. Mac OS (now with working internal eMMC storage installation!) works with accelerated graphics and touchscreen, but screen brightness is 100% and it is missing audio and other functionality. Battery and power management work for all. 
 
 
-| Hardware           | [RisiOS](https://risi.io/) / Fedora| MacOS Monterey     | Windows 10/11   | [Brunch*](https://github.com/sebanc/brunch) |
+| Hardware           | Fedora| MacOS     | Windows 10/11   | [Brunch*](https://github.com/sebanc/brunch) |
 |--------------------|----------------------|---------------------|-----------------|-------------------|
 | WiFi               | Working              | Working             | Working         | Working		|
 | Bluetooth          | Working              | Working             | Working	        | Working		|
