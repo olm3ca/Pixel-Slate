@@ -150,16 +150,16 @@ For Windows, boot from the installer USB, and you may need a driver utility beyo
 7. For now, you can use [BetterDisplay](https://github.com/waydabber/BetterDisplay) for screen brightness. 
 
 
-## Part 6: Brunch
+## Part 6: Brunch 107 
 
-Brunch now works with audio - the camera and fingerprint reader do not work, as expected. To install Brunch, follow the official guide at https://github.com/sebanc/brunch and download the latest stable version. Then download the latest NOCTURNE recovery from chromiumdash. 
+Brunch works with audio on v107 with ChromeOS 107. Newer versions of Brunch and ChromeOS break sound due to kernel incompatibility at the moment. The camera and fingerprint reader do not work, as expected. To install Brunch, follow the official guide at https://github.com/sebanc/brunch and download version 107. Then download NOCTURNE recovery 107 from chromiumdash. 
 
-Notes: Sleep is currently not working, looking for a fix.
+Notes: Sleep is currently not working, looking for a fix. For now, disable sleep in settings.
 
 To fix sound: in /etc/modprobe.d and add `avs.conf` with the following line:
 `options snd-intel-dspcfg dsp_driver=4` and reboot.
 
-Or, to make this more permanent and to survive OS updates, see the below GRUB example for the kernel command line entry:
+Or, to make this more permanent and to survive OS updates, see the below GRUB example for the kernel command line entry (edit this to point to the correct partition you are using on /dev/mmcblk0p#):
 
 ```
 img_part=/dev/mmcblk0p4
