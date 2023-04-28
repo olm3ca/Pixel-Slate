@@ -53,7 +53,7 @@ Switching between systems is a simple reboot followed by CTRL+D (ChromeOS) or CT
 - You can edit the partitions manually following that guide or, as I did, by using the [chromeos-resize](https://github.com/ethanmad/chromeos-resize) utility which worked perfectly on the Slate.
 - In ChromeOS, log in as Guest and CTRL+ALT+T to get to crosh, then follow either the manual or script procedures to set up your partitions. I recommend a KERN-C partition of at least 512mb for the /boot partition, in my case I used 600mb to be safe. You can decide how much space to allocate for ChromeOS and ROOT-C (Linux).
 - After your partitions have been resized, reboot and let ChromeOS repair itself. On reboot, log in and update to the latest ChromeOS version. Finally, reboot, and double check that your disk space is still correct with `sudo cgpt show /dev/mmcblk0`
-- Create a [RisiOS](https://risi.io/) or [Fedora 37](https://getfedora.org/en/workstation/download/) bootable USB. You can download it in ChromeOS, change .iso to .bin and flash it to a USB drive using the Chromebook Recovery Utility.
+- Create a [RisiOS](https://risi.io/) or [Fedora](https://getfedora.org/en/workstation/download/) bootable USB. You can download it in ChromeOS, change .iso to .bin and flash it to a USB drive using the Chromebook Recovery Utility.
 - Go to [MrChromebox's website](https://mrchromebox.tech/#fwscript) and get familiar with it. In this case, run the script and enable RW_Legacy boot. That's all we need to do, no other modifications.
 - Now you can reboot, plug in the RisiOS/Fedora USB (or distro of your choosing) and press CTRL+L at boot to go to seabios. You will need to quickly press ESC to select options to boot from, and choose your USB drive to boot the OS installer.
 - Connect to wifi and start the installer. After selecting language and keyboard layout, the installer will ask about the partitions. 
@@ -67,11 +67,7 @@ Switching between systems is a simple reboot followed by CTRL+D (ChromeOS) or CT
         - `sudo mount /dev/mmcblk0p6 /mnt/boot`
         - `sudo grub2-install --boot-directory=/mnt/boot /dev/mmcblk0 --force` - this should succeed with no errors.
         
-Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. You may wish to edit your grub menu to add an entry for this new ChromeOS kernel. The method I use is:
- - `sudo su`
- - `cd /boot/loader/entries/`
- - `touch chromeos.conf`
- - Then simply copy one of the existing entries to your new entry (chromeos.conf) but change it to boot from vmlinuz-5.10.165 and initramfs-5.10.165.img. 
+Now you can reboot and select CTRL+L to boot into Fedora/RisiOS or CTRL+D to boot into ChromeOS. 
 
 Final Step: to set up audio, follow the instructions in Part 3 below.
 
@@ -117,6 +113,12 @@ reboot
 #### A note on the microphone
 The Pixel Slate microphone in RW_Legacy boot will be fully functional following this method. In full UEFI boot, the speakers will work but not the microphone. This is because the mic uses 4 channel audio, and the UEFI firmware currently limits that to 2 channels. You can update this with a test build from MrChromebox to enable all 4 channels, but it will potentially cause problems in Windows if that matters to you. 
 
+#### To add a bootloader entry for this custom kernel
+You may wish to edit your grub menu to add an entry for this new ChromeOS kernel. The method I use is:
+ - `sudo su`
+ - `cd /boot/loader/entries/`
+ - `touch chromeos.conf`
+ - Then simply copy one of the existing entries to your new entry (chromeos.conf) but change it to boot from vmlinuz-5.10.165 and initramfs-5.10.165.img. 
 
 ## Part 4: Windows 10/11 (with working audio and other driver development, thanks to [Coolstar](https://coolstar.org/)!)
 <img align="right" img src="Windows11.png" width="300">
