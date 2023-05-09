@@ -110,9 +110,6 @@ reboot
 #### Audio firmware files
 1. Run Eupnea audio scripts: https://github.com/eupnea-linux/audio-scripts
 
-#### A note on the microphone
-The Pixel Slate microphone in RW_Legacy boot will be fully functional following this method. In full UEFI boot, the speakers will work but not the microphone. This is because the mic uses 4 channel audio, and the UEFI firmware currently limits that to 2 channels. You can update this with a test build from MrChromebox to enable all 4 channels, but it will potentially cause problems in Windows if that matters to you. 
-
 #### To add a bootloader entry for this custom kernel
 You may wish to edit your grub menu to add an entry for this new ChromeOS kernel. The method I use is:
  - `sudo su`
