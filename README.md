@@ -99,7 +99,7 @@ For best results, use this on Fedora or RisiOS. To build your own, follow the [C
 6. `sudo chmod +x /boot/vmlinuz-5.10.165`
 
 #### Audio firmware files
-1. Run Eupnea audio scripts: [https://github.com/eupnea-linux/audio-scripts](https://github.com/WeirdTreeThing/chromebook-linux-audio)
+1. Run WeirdTreeThing audio [scripts](https://github.com/WeirdTreeThing/chromebook-linux-audio)
 
 #### To add a bootloader entry for this custom kernel
 You may wish to edit your grub menu to add an entry for this new ChromeOS kernel. The method I use is:
