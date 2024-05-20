@@ -86,7 +86,7 @@ To proceed, you'll need to open the write protect for this machine's CR50 securi
 
 ## Part 3: Linux and Audio
 <img align="right" img src="aplay.png" width="350">
-Install the distro of your choice but note: by default audio will not work on mainline kernels. By installing a custom ChromeOS kernel and copying topology and firmware files using the helpful [Eupnea](https://eupnea-linux.github.io/) Project's audio script, the speakers and microphone now work.
+Install the distro of your choice but note: by default audio will not work on mainline kernels. By installing a custom ChromeOS kernel and copying topology and firmware files using the helpful developer [WeirdTreeThing's](https://github.com/WeirdTreeThing/chromebook-linux-audio) audio script, the speakers and microphone now work.
 
 #### Custom Kernel install 
 For best results, use this on Fedora or RisiOS. To build your own, follow the [Create your own custom kernel guide.](https://github.com/olm3ca/Pixel-Slate/blob/main/Create%20your%20own%20custom%20kernel.md)
@@ -98,17 +98,8 @@ For best results, use this on Fedora or RisiOS. To build your own, follow the [C
 5. `sudo dracut --kver 5.10.165+ initramfs-5.10.165.img`
 6. `sudo chmod +x /boot/vmlinuz-5.10.165`
 
-Note: on first boot with the new kernel, the screen may be upside down. To fix:
-```
-sudo su
-cd /etc/udev/hwdb.d
-wget https://raw.githubusercontent.com/eupnea-linux/depthboot-builder/main/configs/hwdb/61-sensor.hwdb
-systemd-hwdb update
-reboot
-```
-
 #### Audio firmware files
-1. Run Eupnea audio scripts: https://github.com/eupnea-linux/audio-scripts
+1. Run Eupnea audio scripts: [https://github.com/eupnea-linux/audio-scripts](https://github.com/WeirdTreeThing/chromebook-linux-audio)
 
 #### To add a bootloader entry for this custom kernel
 You may wish to edit your grub menu to add an entry for this new ChromeOS kernel. The method I use is:
