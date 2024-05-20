@@ -86,7 +86,7 @@ To proceed, you'll need to open the write protect for this machine's CR50 securi
 
 ## Part 3: Linux and Audio
 <img align="right" img src="aplay.png" width="350">
-Install the distro of your choice but note: by default audio will not work on mainline kernels. By installing a custom ChromeOS kernel and copying topology and firmware files using the helpful script from developer [WeirdTreeThing](https://github.com/WeirdTreeThing/chromebook-linux-audio), the speakers and microphone now work.
+Install the distro of your choice but note: by default audio will not work on mainline kernels. By installing a custom ChromeOS kernel and copying topology and firmware files using the helpful script from developer WeirdTreeThing (see link below), the speakers and microphone now work.
 
 #### Custom Kernel install 
 For best results, use this on Fedora or RisiOS. To build your own, follow the [Create your own custom kernel guide.](https://github.com/olm3ca/Pixel-Slate/blob/main/Create%20your%20own%20custom%20kernel.md)
